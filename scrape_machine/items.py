@@ -26,6 +26,8 @@ class LeadItem(Item):
     - linkedin_url: LinkedIn profile URL
     - source: Where this lead was found
     - scraped_date: When this lead was scraped
+    - address: Physical address
+    - rating: Business rating (e.g., from Google Maps)
     """
     name = Field()
     email = Field()
@@ -36,3 +38,5 @@ class LeadItem(Item):
     linkedin_url = Field()
     source = Field()
     scraped_date = Field()
+    address = Field()
+    rating = Field()
