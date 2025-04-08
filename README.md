@@ -4,9 +4,6 @@
 
 Hey there! 👋 Ever found yourself writing the same scraping code over and over? We've been there too. That's why we built ScrapeForge - a toolkit that makes web scraping less painful and more fun.
 
-![ScrapeForge Banner](assets/temporary-banner.jpeg)
-
-
 ## What's This All About?
 
 We're building a collection of ready-to-use scrapers that:
