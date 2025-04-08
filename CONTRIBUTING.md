@@ -1,129 +1,155 @@
 # Contributing to ScrapeForge
 
-Thanks for your interest in contributing to **ScrapeForge** — a modular, real-world scraping toolkit designed to solve practical data extraction problems like finding business leads, scraping paginated listings, and more.
+Hey there! 👋 Thanks for wanting to help out with ScrapeForge. We're building a toolkit to make web scraping less painful, and we'd love your help.
 
-We’re building a composable, plug-and-play ecosystem of scraper modules. Your contributions help make it more powerful, flexible, and useful.
+## What We're Building
 
----
+We want ScrapeForge to be:
+- Easy to extend with new scrapers
+- Tough enough to handle real-world websites
+- Simple to configure 
+- Clean and well-documented
 
-## 🧱 Project Structure
+## Getting Started
 
-scrapeforge/ ├── core/ # Core execution engine and module loader ├── modules/ # Self-contained scraper modules ├── utils/ # Shared helpers (pagination, output formats, etc.) ├── configs/ # Sample configs for different modules
+1. **Fork the Repo**
+   - Hit that "Fork" button up in the top right
+   - Clone your fork: `git clone https://github.com/YOUR_USERNAME/scrapeforge.git`
 
-yaml
+2. **Set Up Your Environment**
+   ```bash
+   # Create a virtual environment 
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
 
+   # Install the good stuff
+   pip install -r requirements.txt
+   pip install -r requirements-dev.txt  # Extra tools for development
+   ```
 
+3. **Create a Branch**
+   ```bash
+   git checkout -b feature/your-cool-feature
+   # or
+   git checkout -b fix/that-annoying-bug
+   ```
 
-Each module is standalone and follows a consistent `run(config)` pattern. Think of modules like installable “scraping blueprints” for specific use cases.
+## How We Work
 
----
-
-## ✅ How You Can Contribute
-
-- ✅ Add a new scraper module (e.g. product listings, job boards, open datasets)
-- ✅ Improve existing modules (robustness, structure, retries, anti-bot tricks)
-- ✅ Extend the core (config-driven execution, logging, proxy rotation)
-- ✅ Write documentation, sample configs, or tutorials
-
----
-
-## 🔧 Getting Set Up
-
-```bash
-# Clone the repo
-git clone https://github.com/YOUR_ORG/scrapeforge.git
-cd scrapeforge
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run a module
-python main.py --module=example_module --config=configs/example.json
-🧩 Adding a Scraper Module
-Every module must:
-
-Live under modules/your_module_name/
-
-Include a scraper.py file with a run(config: dict) -> list[dict] interface
-
-Optionally include README.md and config_template.json
-
-🔁 Example
-python
+### Writing Code
+- Keep it clean and readable (PEP 8 is your friend)
+- Add type hints (they're not just for show)
+- Keep functions short and sweet (under 50 lines if you can)
+- Add docstrings (your future self will thank you)
 
 
-# scraper.py
+### Building Modules
+Here's how we structure our scraping modules:
+```
+modules/
+└── your_module/
+    ├── __init__.py
+    ├── scraper.py      # The main scraping logic lives here
+    ├── config.py       # Configuration options
+    └── tests/          # Tests go here
+```
 
-def run(config):
-    url = config["start_url"]
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
+### Testing
+- Write tests for new stuff
+- Make sure everything passes before you submit
+- Run `pytest` to check your work
+
+### Documentation
+- Update the README if you add new features
+- Document any new config options
+- Add examples in the `examples/` folder
+
+## Making Pull Requests
+
+1. **Before You Submit**
+   - Run the tests: `pytest`
+   - Check your code style: `flake8`
+   - Update docs if needed
+   - Make sure you're up to date with main
+
+2. **Creating Your PR**
+   - Give it a clear title
+   - Link to any related issues
+   - Add screenshots if you changed the UI
+   - Tell us what you changed and why
+
+3. **During Review**
+   - We might ask for changes - that's normal!
+   - Keep your commits focused
+   - Update your PR as needed
+
+## Reporting Bugs
+
+Found a bug? Help us fix it! Please include:
+- Your Python version
+- Your OS
+- Steps to make it happen
+- What you expected vs what happened
+- Screenshots if they help
+
+## Suggesting Features
+
+Got a cool idea? Tell us about it! We want to know:
+- What problem are you trying to solve?
+- How would you solve it?
+- Got any examples?
+- Will it break existing stuff?
+
+## Building a New Module
+
+Here's a quick example of how to build a new scraper:
+
+```python
+from scrapeforge.core import BaseModule
+
+class CoolScraper(BaseModule):
+    def __init__(self, config):
+        super().__init__(config)
     
-    data = []
-    for item in soup.select("div.item"):
-        data.append({
-            "title": item.select_one(".title").text,
-            "link": item.select_one("a")["href"]
-        })
-    
-    return data
-Return a list of dictionaries; output handlers will take care of formatting.
+    def run(self):
+        # Your scraping magic here
+        pass
+```
 
-⚙️ Core Standards
-✅ Output should be structured (list[dict]) — no printing or writing files in modules
+And here's how to set up its config:
 
-✅ Use the built-in utils/ functions where possible
+```python
+# config.py
+from pydantic import BaseModel
 
-✅ Handle pagination, missing data, and basic anti-bot defenses if applicable
+class CoolScraperConfig(BaseModel):
+    url: str
+    max_pages: int = 10
+    # Add other options here
+```
 
-✅ Stick to PEP8 (we use black for formatting)
+And a basic test:
 
-🧪 Testing
-Manual testing is sufficient for now
+```python
+# tests/test_cool_scraper.py
+def test_cool_scraper():
+    config = CoolScraperConfig(url="https://example.com")
+    scraper = CoolScraper(config)
+    results = scraper.run()
+    assert len(results) > 0
+```
 
-Run your module using a sample config
+## Being Part of the Community
 
-Output will be printed or saved via the core runner
+- Be nice to each other
+- Help others learn
+- Share what you know
+- Follow our code of conduct
 
-🚀 Submitting Your PR
-Fork and branch:
+## Need Help?
 
-bash
+- Found a bug? Open an issue
+- Got questions? Start a discussion
+- Want to chat? Join our community
 
-
-git checkout -b add-module-my-module
-Add your module and a sample config
-
-Ensure your module runs cleanly and outputs valid JSON
-
-Open a PR with:
-
-Clear module name (e.g. Add scraper for TechCrunch news)
-
-Site scraped and data fields returned
-
-Notes on special handling (pagination, JS, anti-bot, etc.)
-
-📚 Resources
-Example modules: runescape, business_directory, job_board
-
-Good first issues: See GitHub Issues
-
-Need help? Start a GitHub Discussion
-
-Thanks for helping make ScrapeForge the go-to toolkit for smart, real-world scraping.
-
-Let’s build a better way to extract the web.
-
-vbnet
-
-
-
----
-
-Let me know if you’d like:
-- A `scrape_module_template/` generator for new modules  
-- A CLI scaffold command like `scrapeforge create-module job_board`  
-- GitHub Action to auto-lint or check structure for new PRs
-
-Want to publish the repo now? I can draft the first issues to seed the community.
+Thanks for helping make ScrapeForge better! 🚀

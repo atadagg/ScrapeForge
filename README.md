@@ -1,153 +1,152 @@
 # ScrapeForge
 
-**Modular, ready-to-use web scrapers for real-world data extraction**
+![ScrapeForge Logo](assets/temporary-logo.png)
 
-ScrapeForge is an open-source scraping toolkit designed to solve *actual problems* — like finding business leads, extracting product listings, or crawling article archives — without writing boilerplate code.
+Hey there! 👋 Ever found yourself writing the same scraping code over and over? We've been there too. That's why we built ScrapeForge - a toolkit that makes web scraping less painful and more fun.
 
-We're building a plug-and-play system of scraping modules that:
-- Abstract common patterns (e.g., following paginated lists, extracting from template-based pages)
-- Are reusable and composable
-- Require minimal configuration
-- Come with smart defaults, including anti-bot measures and fault tolerance
+![ScrapeForge Banner](assets/temporary-banner.jpeg)
 
-> Think of it like a power toolset, not a framework.
 
----
+## What's This All About?
 
-## 🔧 Use Cases
+We're building a collection of ready-to-use scrapers that:
+- Handle the boring stuff (like pagination and anti-bot measures)
+- Work together like building blocks
+- Just need a simple config file to get going
+- Come with smart defaults that actually work
 
-ScrapeForge provides out-of-the-box modules for:
+Think of it as your scraping toolbox, not another framework to learn.
 
-- ✅ Scraping local businesses from public directories  
-- ✅ Extracting data from paginated product lists or search result pages  
-- ✅ Following links from a listing to detail pages and extracting structured fields  
-- ✅ Periodic scraping with automatic retries & rotation (coming soon)  
+## What Can You Do With It?
 
----
+Right now, you can:
+- ✅ Find local businesses from public directories
+- ✅ Grab data from product listings and search results
+- ✅ Follow links and extract details from pages
+- ✅ (Coming soon) Set up automatic scraping with retries
 
-## 🧱 Architecture
+## How It's Built
 
-ScrapeForge is built around a modular plugin-style architecture:
-- `core/`: Execution engine, scheduler, config loader
-- `modules/`: Plug-and-play scraping flows (e.g., `business_directory`, `ecommerce_listing`, etc.)
-- `utils/`: Common helpers for pagination, proxy rotation, HTML parsing, etc.
+We keep things simple and modular:
+- `core/`: The engine that runs everything
+- `modules/`: Ready-to-use scrapers (like `business_directory`, `ecommerce_listing`)
+- `utils/`: Handy tools for pagination, proxies, and parsing
 
-Each module:
-- Has a standard interface (`run(config)` or CLI)
-- Accepts config files (YAML or JSON)
-- Outputs structured data (CSV, JSON, or directly to DBs)
+Each scraper:
+- Has a simple interface (`run(config)` or CLI)
+- Uses YAML/JSON for config
+- Spits out clean data (CSV, JSON, or straight to DB)
 
----
-
-## 🚀 Getting Started
+## Quick Start
 
 ```bash
-# Clone the repo
-git clone https://github.com/your-org/scrapeforge.git
+# Get the code
+git clone https://github.com/atadagg/scrapeforge.git
 cd scrapeforge
 
-# Install dependencies
+# Set up your environment
 pip install -r requirements.txt
 
-# Run a sample scraper
+# Try it out
 python main.py --module=business_directory --config=configs/istanbul_local.json
 ```
 
-## 📦 Tech Stack
+## What's Under the Hood?
 
-- Python: Simplicity and wide ecosystem support
-- Scrapy (tentative): Industrial-strength crawling framework with battle-tested features like retries, throttling, and selectors
-- Playwright or Selenium (optional): For JavaScript-heavy pages
-- Rotating proxies / user-agent pools: Built-in or pluggable
-- Docker (optional): For sandboxed, repeatable scrapes
-- JSON/YAML: For configuration-driven scrapes
-- Pandas / SQLite / CSV: For lightweight data output
+We use:
+- Python (because it's awesome for scraping)
+- Scrapy (for the heavy lifting)
+- Playwright/Selenium (when we need to handle JavaScript)
+- Smart proxy rotation (to avoid getting blocked)
+- Docker (optional, but handy for testing)
+- YAML/JSON (for easy config)
+- Pandas/SQLite (for storing results)
 
-## 🧠 Future
+## What's Next?
 
-A unified CLI + GUI dashboard for managing scrapes across modules.
+We're working on a cool dashboard to manage all your scrapes in one place. Stay tuned!
 
-## 🤝 Contributing
+## Want to Help?
 
-We welcome contributions! If you have an idea for a new scraper module (e.g., job boards, product listings, open datasets), or want to improve the system, start here:
+We'd love your help! Whether you want to:
+- Add new scrapers for real websites
+- Make the system more robust
+- Help with anti-bot tricks
+- Or something else cool
 
-- [Read the CONTRIBUTING guide](./CONTRIBUTING.md)
-- Browse [open issues](https://github.com/your-org/your-project/issues)
-- Check out ["good first issue"](https://github.com/atadagg/scrape-machine/labels/good%20first%20issue) tasks
+Check out:
+- Our [contributing guide](./CONTRIBUTING.md)
+- [Open issues](https://github.com/atadagg/ScrapeForge/issues)
+- ["Good first issue"](https://github.com/atadagg/ScrapeForge/labels/good%20first%20issue) tasks
 
-We’re especially looking for:
-- New modules for scraping real websites
-- Improvements to our modular architecture
-- Anti-bot techniques (proxy pools, captcha solvers, etc.)
+## License
 
-## 📜 License
+MIT - because sharing is caring! 
 
-MIT — open to all.
+## Join the Fun
 
-## 🌍 Join Us
+We built this because we were tired of writing one-off scraping scripts. If that sounds familiar, you're in the right place!
 
-This project was created to make scraping faster, cleaner, and accessible. If you've ever built a throwaway script for a one-off scrape, we've been there. ScrapeForge turns those scripts into durable tools.
-
-Follow us on Twitter or join the Discussions to shape the roadmap.
+Follow us on Twitter or jump into our Discussions to help shape what's next.
 
 ---
 
-# Current Implementation: Google Maps Scraper
+# Current Feature: Google Maps Scraper
 
-The current implementation includes a Google Maps scraper that extracts business lead information. Below are the specific details for this module:
+Right now, we've got a solid Google Maps scraper that finds business leads. Here's how to use it:
 
-## Installation
+## Setting It Up
 
-1. Create a virtual environment:
+1. Create a virtual environment (trust us, you'll want this):
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-2. Install dependencies:
+2. Install what you need:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## Using It
 
-### Running the Google Maps Selenium Spider
-
-Basic usage (uses default query "doctor" and location "Tulsa, OK"):
+### Basic Usage
+Want to find doctors in Tulsa? Just run:
 ```bash
 scrapy crawl google_maps_selenium
 ```
 
-With custom query and location:
+### Custom Search
+Looking for dentists in New York? Try:
 ```bash
 scrapy crawl google_maps_selenium -a query="dentist" -a location="New York, NY"
 ```
 
-**Note:** The spider uses a visible Chrome browser window by default to avoid detection. You can uncomment the `--headless` option in the spider code if needed, but it might increase the chances of being blocked.
+**Pro Tip:** We use a visible Chrome window by default to avoid getting blocked. You can use headless mode if you want, but it might make Google suspicious.
 
-## Output
+## What You Get
 
-The scraper will create a JSON file in the format `leads_YYYYMMDD_HHMMSS.json` containing the scraped leads. Each lead will include:
-- `name`: Business name
-- `company`: Business name (same as name)
-- `address`: Business address (may sometimes capture rating/reviews - needs refinement)
-- `phone`: Business phone number
-- `website`: Business website URL (if available)
-- `source`: Always 'google_maps'
-- `scraped_date`: Timestamp of when the lead was scraped
+The scraper creates a JSON file named `leads_YYYYMMDD_HHMMSS.json` with:
+- Business name
+- Address (sometimes includes ratings - we're working on cleaning that up)
+- Phone number
+- Website (if they have one)
+- Source (always 'google_maps')
+- When we found it
 
-## Customization
+## Customizing It
 
-You can modify the following files to customize the scraper:
+Want to tweak how it works? Check out:
+- `scrape_machine/settings.py`: General settings
+- `scrape_machine/spiders/google_maps_selenium.py`: The main scraping logic
+- `scrape_machine/pipelines.py`: How we process the data
+- `scrape_machine/items.py`: The data structure
 
-- `scrape_machine/settings.py`: General Scrapy settings
-- `scrape_machine/spiders/google_maps_selenium.py`: Google Maps Selenium spider logic
-- `scrape_machine/pipelines.py`: Data processing pipeline
-- `scrape_machine/items.py`: Definition of the `LeadItem` structure
+## A Few Tips
 
-## Notes
+- Play nice with robots.txt
+- Google Maps changes its layout sometimes - we might need to update selectors
+- We've got built-in delays to avoid overwhelming servers
+- For big jobs, consider using proxies
 
-- Respect websites' robots.txt and terms of service.
-- Google Maps frequently changes its layout; the CSS selectors in the spider might need updating.
-- Use appropriate delays between requests (already implemented with `DOWNLOAD_DELAY` and `time.sleep`).
-- Consider using proxies for large-scale scraping to avoid IP bans.
+Let me know if you need anything else! 🚀
