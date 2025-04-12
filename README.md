@@ -145,5 +145,3 @@ Want to tweak how it works? Check out:
 - Google Maps changes its layout sometimes - we might need to update selectors
 - We've got built-in delays to avoid overwhelming servers
 - For big jobs, consider using proxies
-
-Let me know if you need anything else! 🚀
